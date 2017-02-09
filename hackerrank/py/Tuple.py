@@ -1,0 +1,5 @@
+n = int(input())
+arr = raw_input()
+L = map(int ,arr.split())
+T = tuple(L)
+print hash(T)
