@@ -67,11 +67,13 @@ void Graph::DFS(int s)
 // Driver program to test methods of graph class
 int main()
 {
-    Graph g(5); // Total 5 vertices in graph
-    g.addEdge(1, 0);
+    Graph g(7); // Total 7 vertices in graph
+    g.addEdge(0, 1);
     g.addEdge(0, 2);
-    g.addEdge(2, 1);
     g.addEdge(0, 3);
+    g.addEdge(1, 3);
+    g.addEdge(3, 4);
+    g.addEdge(2, 4);
     g.addEdge(1, 4);
  
     cout << "Following is Depth First Traversal\n";
