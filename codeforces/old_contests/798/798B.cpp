@@ -48,37 +48,34 @@ ll power_modulo(ll base, ll exp, ll mod){
 	return result;
 }
 
+string retsubs(string s, int k){
+	return s.substr(k)+s.substr(0,k);
+}
 int main(){
-	int t;
-	cin>>t;
-	FOR(i,1,t+1){
-		string s;
-		cin>>s;
-		bool flag=true;
-		REP(j,s.size()-1)
-			if(s[j]>s[j+1]){
-				flag=false;
-				break;
+	int n;
+	cin>>n;
+	string s[n];
+	REP(i,n)
+		cin>>s[i];
+	int minsum=MAX;
+	REP(i,s[0].size()){
+		string t = retsubs(s[0],i);
+		int cursum = i;
+		FOR(j,1,n){
+			bool correct=false;
+			REP(k,s[0].size()){
+				if(retsubs(s[j],k)==t){
+					correct=true;
+					cursum+=k;
+					break;
+				}
 			}
-		if(flag){
-			cout<<"Case #"<<i<<": "<<s<<endl;
-			continue;
+			if(!correct){
+				cout<<-1<<endl;
+				return 0;
+			}
 		}
-		int j=0;
-		while(s[j+1]>s[j])
-			j++;
-		while(s[j]==s[j-1])
-			j--;
-		s[j]-=1;
-		FOR(k,j+1,s.size())
-			s[k]='0'+9;
-		cout<<"Case #"<<i<<": ";
-		int k=0;
-		while(s[k] == '0')
-			k++;
-		while(k<s.size()){
-			cout<<s[k++];
-		}
-		cout<<endl;
-	}		
+		minsum=min(cursum,minsum);
+	}
+	cout<<minsum<<endl;
 }

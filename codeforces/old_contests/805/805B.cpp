@@ -49,33 +49,19 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-	int t;
-	cin>>t;
-	FOR(i,1,t+1){
-		int length,count=0;
-		string s;
-		cin>>s>>length;
-		int j=0;
-		while(j<s.size()-length+1){
-			while(s[j]=='+')
-				j++;
-			count++;
-			FOR(k,j,j+length){
-				if(s[k]=='+')
-					s[k]='-';
-				else
-					s[k]='+';
-			}
-			DEBUG(s);
-		}
-		count--;
-		bool flag=true;
-		for(j=s.size()-length+1;j<s.size();j++)
-			if(s[j]=='-')
-				flag=false;
-		if(flag)
-			cout<<"Case #"<<i<<": "<<count<<endl;
+	int size;
+	cin>>size;
+	REP(i,size/2){
+		if(i%2==0)
+			cout<<"aa";
 		else
-			cout<<"Case #"<<i<<": "<<"IMPOSSIBLE"<<endl;	
-	}	
+			cout<<"bb";
+	}
+	if(size%2==1){
+		if((size/2)%2==0)
+			cout<<"a";
+		else
+			cout<<"b";
+	}
+	cout<<endl;
 }
