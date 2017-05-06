@@ -48,6 +48,39 @@ ll power_modulo(ll base, ll exp, ll mod){
 	return result;
 }
 
+int gcd(int a, int b){
+	if(a==0)
+		return b;
+	else
+		return gcd(b%a,a);
+}
+
 int main(){
-		
+	int n,ans=0,cur=0,a,g;
+	cin>>n;
+
+	REP(i,n){
+		cin>>a;
+		if(i==0){
+			g=a;
+		}
+		else{
+			g=gcd(a,g);
+		}
+		if(a%2==1)
+			cur++;
+		else{
+			ans+=cur/2;
+			if(cur%2==1)
+				ans+=2;
+			cur=0;
+		}
+	}
+	ans+=cur/2;
+	if(cur%2==1)
+		ans+=2;
+	if(g>2)
+		cout<<"YES"<<endl<<0<<endl;
+	else
+		cout<<"YES"<<endl<<ans<<endl;
 }

@@ -49,5 +49,18 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-		
+	string s;
+	int countb=0, ans=0;
+	cin>>s;
+	reverse(all(s));
+	REP(i,s.size()){
+		if(s[i]=='b'){
+			countb = (countb+1)%MAX;
+		}
+		else{
+			ans = (ans+countb)%MAX;
+			countb = (2*countb)%MAX;
+		}
+	}
+	cout<<ans<<endl;
 }

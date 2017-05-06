@@ -49,5 +49,22 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-		
+	int t;
+	cin>>t;
+	REP(k,t){
+		string s;
+		cin>>s;
+		int i=0;
+		while(s[i]=='C' && i<s.size())
+			i++;
+		while(s[i]=='E' && i<s.size())
+			i++;
+		while(s[i]=='S' && i<s.size())
+			i++;
+		if(i<s.size())
+			cout<<"no"<<endl;
+		else
+			cout<<"yes"<<endl;
+
+	}		
 }
