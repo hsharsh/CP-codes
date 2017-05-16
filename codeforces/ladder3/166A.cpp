@@ -48,14 +48,24 @@ ll power_modulo(ll base, ll exp, ll mod){
 	return result;
 }
 
+inline bool comp(pii a, pii b){
+	if(a.F==b.F)
+		return a.S<b.S;
+	return a.F>b.F;
+}
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	int n,k;
+	cin>>n>>k;
+	vector<pii> table(n);
+	REP(i,n)
+		cin>>table[i].F>>table[i].S;
+	sort(all(table),comp);
+	int count=0;
+	REP(i,n){
+		if(table[i]==table[k-1])
+			count++;
 	}
-	cout<<endl;
+	cout<<count<<endl;
 }

@@ -3,15 +3,14 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.5
+Version	:	1.62
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
 using namespace std;
 
 #define pi 			3.141592653593
-#define MIN 		-1000000001
-#define MAX 		1000000001
+#define MOD         1000000007
 #define EPS 		0.000000001
 
 #define cns 		ios_base::sync_with_stdio(false)
@@ -28,6 +27,7 @@ using namespace std;
 #define vii 		vector<vector<int> >
 #define vll 		vector<vector<ll> >
 #define vs 			vector<string>
+#define vb			vector<bool>
 #define si 			set<int>
 #define pii 		pair<int,int>
 #define pll			pair<ll,ll>
@@ -49,5 +49,18 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-		
+/*	freopen("input.txt","r",stdin);	
+	freopen("output.txt","w",stdout);	*/
+	int a,b,c;
+	cin>>a>>b>>c;
+	int n;
+	cin>>n;
+	ll ans=0;
+	FOR(i,1,n+1){
+		int t;
+		cin>>t;
+		if(t<c && t>=b+1)
+		ans++;
+	}
+	cout<<ans<<endl;
 }

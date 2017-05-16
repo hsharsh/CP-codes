@@ -3,14 +3,15 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.5
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
 using namespace std;
 
 #define pi 			3.141592653593
-#define MOD         1000000007
+#define MIN 		-1000000001
+#define MAX 		1000000001
 #define EPS 		0.000000001
 
 #define cns 		ios_base::sync_with_stdio(false)
@@ -27,7 +28,6 @@ using namespace std;
 #define vii 		vector<vector<int> >
 #define vll 		vector<vector<ll> >
 #define vs 			vector<string>
-#define vb			vector<bool>
 #define si 			set<int>
 #define pii 		pair<int,int>
 #define pll			pair<ll,ll>
@@ -48,14 +48,34 @@ ll power_modulo(ll base, ll exp, ll mod){
 	return result;
 }
 
-int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+bool equal(vi a, vi b, int n){
+	bool eq=true;
+	REP(i,n){
+		if(a[i]!=b[i])
+			eq=false;
 	}
-	cout<<endl;
+	return eq;
+}
+int main(){
+	int n;
+	cin>>n;
+	vi a(n),b(n);
+	bool change = false;
+	REP(i,n){
+		cin>>a[i]>>b[i];
+		if(a[i]!=b[i])
+			change=true;
+	}
+	vi sb = b;
+
+	sort(rall(sb));
+	if(change){
+		cout<<"rated"<<endl;
+	}
+	else{
+		if(equal(sb,b,n))
+			cout<<"maybe"<<endl;
+		else
+			cout<<"unrated"<<endl;
+	}
 }

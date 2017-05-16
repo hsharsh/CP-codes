@@ -49,6 +49,18 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
+	int y,k,n;
 	cin>>y>>k>>n;
-		
+	bool flag=false;
+	int i=1;
+	while(i*k<=n){
+		if(i*k-y>0){
+			flag=true;
+			cout<<i*k-y<<" ";
+		}
+		i++;
+	}
+	if(!flag)
+		cout<<-1;
+	cout<<endl;
 }

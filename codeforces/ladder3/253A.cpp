@@ -49,13 +49,22 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	freopen("input.txt","r",stdin);	
+	freopen("output.txt","w",stdout);		
+	int n,m,c;
+	cin>>n>>m;
+	c=min(n,m);
+	if(n>m){
+		REP(i,c)
+			cout<<"BG";
+		REP(i,n-c)
+			cout<<"B";
+	}
+	else{
+		REP(i,c)
+			cout<<"GB";
+		REP(i,m-c)
+			cout<<"G";
 	}
 	cout<<endl;
 }

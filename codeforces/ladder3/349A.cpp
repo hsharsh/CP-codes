@@ -51,11 +51,41 @@ ll power_modulo(ll base, ll exp, ll mod){
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	int n;
+	cin>>n;
+	int a=0,b=0,c=0;
+	bool flag=true;
+	REP(I,n){
+		int d;
+		cin>>d;
+		if(d==100){
+			if(a>=1){
+				if(b>=1){
+					b-=1;
+					a-=1;
+				}
+				else if(a>=3){
+					a-=3;
+				}
+				else
+					flag=false;
+			}
+			else
+				flag=false;
+		}
+		else if(d==50){
+			if(a>=1){
+				a-=1;
+				b+=1;
+			}
+			else
+				flag=false;
+		}
+		else{
+			a+=1;
+		}
+		if(!flag)
+			break;
 	}
-	cout<<endl;
+	cout<<(flag?"YES":"NO")<<endl;
 }

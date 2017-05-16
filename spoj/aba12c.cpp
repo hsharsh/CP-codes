@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.6
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -48,14 +48,45 @@ ll power_modulo(ll base, ll exp, ll mod){
 	return result;
 }
 
+ll knapsack(vll &memo, vi a, ll n, ll k, ll required){
+	if((k==0||n==0) && required>0)
+		return INT_MAX;
+	if(required==0)
+		return 0;
+	if(required<0)
+		return INT_MAX;
+	if(memo[n][required])
+		return memo[n][required];
+	DEBUG(n);
+	DEBUG(k);
+	DEBUG(required);
+
+	ll t1 = knapsack(memo,a,n,k-1,required);
+	ll t2 = INT_MAX;
+	if(a[k]!=-1)
+		t2 = a[k-1] + knapsack(memo,a,n-1,k-1,required-a[k-1]);
+	memo[n][required]= min(t1,t2);
+	DEBUG(memo[n][required]);
+	return memo[n][required];
+}
+
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
-	}
-	cout<<endl;
+	int t;
+	cin>>t;
+	REP(I,t){
+		int n,k;
+		cin>>n>>k;
+		vi a(k,0);
+		REP(i,k){
+			cin>>a[i];
+			DEBUG(a[i]);
+		}
+		cout<<"yolo";	
+		vll memo(n,vl(k,0));
+/*		if(knapsack(memo,a,n,k,k)>INT_MAX)
+			cout<<-1;
+		else
+			cout<<knapsack(memo,a,n,k,k);
+*/
+	}		
 }

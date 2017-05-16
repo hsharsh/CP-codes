@@ -3,14 +3,15 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.5
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
 using namespace std;
 
 #define pi 			3.141592653593
-#define MOD         1000000007
+#define MIN 		-1000000001
+#define MAX 		1000000001
 #define EPS 		0.000000001
 
 #define cns 		ios_base::sync_with_stdio(false)
@@ -27,7 +28,6 @@ using namespace std;
 #define vii 		vector<vector<int> >
 #define vll 		vector<vector<ll> >
 #define vs 			vector<string>
-#define vb			vector<bool>
 #define si 			set<int>
 #define pii 		pair<int,int>
 #define pll			pair<ll,ll>
@@ -49,13 +49,34 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	int p,x,y;
+	cin>>p>>x>>y;
+	int i=x,mx = x/50;
+	while(i>=y)
+		i-=50;
+	i+=50;
+	i/=50;
+	while(true){
+		int j = i%475;
+		bool found=false;
+		REP(k,25){
+    		j = (j*96+42)%475;
+    		if(j+26==p){
+    			if(i>mx){
+    				if((i-mx)%2==1)
+    					cout<<(i-mx)/2 + 1<<endl;
+    				else
+    					cout<<(i-mx)/2<<endl;
+    			}
+    			else{
+   					cout<<0<<endl;
+    			}
+    			found=true;
+    			break;
+    		}
+		}
+    	if(found==true)
+    		break;
+    	i++;
 	}
-	cout<<endl;
 }

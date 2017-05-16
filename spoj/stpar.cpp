@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.63
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -36,26 +36,26 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
-ll power_modulo(ll base, ll exp, ll mod){
-	ll result = 1;
-	base %= mod;
-	while(exp > 0){
-		if(exp%2 == 1)
-			result = (result*base) % mod;
-		exp = exp>>1;
-		base = (base*base) % mod;
-	}
-	return result;
-}
-
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	int n;
+	cin>>n;
+	stack<int> street;
+	vi order(n);
+	REP(i,n){
+		int next;
+		cin>>next;
+		while(street.size() && street.top()>next){
+			order.pb(street.top());
+			street.pop();
+		}
+		street.push(next);
 	}
-	cout<<endl;
+	bool possible=true;
+	REP(i,n){
+		if(order[i]!=i+1)
+			possible=false;
+	}
+	cout<<(possible?"yes":"no")<<endl;
 }

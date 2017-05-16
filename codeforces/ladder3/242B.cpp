@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.61
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -49,13 +49,27 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	int n;
+	cin>>n;
+	
+	vector<pii> a(n+1);
+	int low=INT_MAX,high=INT_MIN;
+	FOR(i, 1, n+1){
+		cin>>a[i].F>>a[i].S;
+		low = min(low,a[i].F);
+		high = max(high,a[i].S);
 	}
-	cout<<endl;
+
+	bool flag=false;
+	int answer;
+	FOR(i,1,n+1){
+		if(a[i].F==low){
+			if(a[i].S==high){
+				flag=true;
+				answer=i;
+				break;
+			}
+		}
+	}
+	cout<<(flag?answer:-1)<<endl;
 }

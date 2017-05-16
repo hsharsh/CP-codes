@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.5
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -49,13 +49,47 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
+	int n,m;
+	cin>>n;
+	vector<pair<int,int> > pos[3];
+	vi p(n);
+	REP(i,n){
+		cin>>p[i];
 	}
-	cout<<endl;
+	REP(I,2){
+		REP(i,n){
+			int c;
+			cin>>c;
+			pos[c-1].pb(mp(p[i],i));
+		}
+	}
+	vector<pair<int,int> >::iterator it[3];
+	REP(i,3){
+		sort(all(pos[i]));
+		it[i] = pos[i].begin();
+	}
+
+	vb sold(n,false);
+	cin>>m;
+	REP(i,m){
+		int c;
+		cin>>c;
+		bool found=false;
+		int ans;
+		while(it[c-1]!=pos[c-1].end()){
+			if(!sold[it[c-1]->S]){
+				found=true;
+				ans=it[c-1]->F;
+				sold[it[c-1]->S]=true;
+				it[c-1]++;
+				break;
+			}
+			else
+				it[c-1]++;
+		}
+		if(found)
+			cout<<ans<<endl;
+		else
+			cout<<-1<<endl;
+	}
 }

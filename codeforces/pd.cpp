@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.5
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -27,7 +27,6 @@ using namespace std;
 #define vii 		vector<vector<int> >
 #define vll 		vector<vector<ll> >
 #define vs 			vector<string>
-#define vb			vector<bool>
 #define si 			set<int>
 #define pii 		pair<int,int>
 #define pll			pair<ll,ll>
@@ -49,13 +48,5 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	double n,h,step;
-	cin>>n>>h;
-	step = h/sqrt(n);
-	REP(i,n-1){
-		printf("%0.12f ",step*sqrt(i+1));
-	}
-	cout<<endl;
+		
 }
