@@ -39,5 +39,29 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n;
+	cin>>n;
+	vi a(n),d(n,INT_MAX);
+	REP(i,n)
+		cin>>a[i];
+	int zero = -1;
+	REP(i,n){
+		if(a[i]==0)
+			zero=i;
+		if(zero!=-1){
+			d[i]=i-zero;
+		}
+	}
+	zero = -1;
+	DFOR(i,n-1,-1){
+		if(a[i]==0)
+			zero=i;
+		if(zero!=-1){
+			if((zero-i)<d[i])
+				d[i] = zero-i;
+		}
+	}
+	REP(i,n)
+		cout<<d[i]<<" ";
+	cout<<endl;
 }

@@ -39,5 +39,52 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int T;
+	cin>>T;
+	REP(I,T){
+		int n,q;
+		cin>>n>>q;
+		vi length(n);
+		vl temp(n+1,0);
+		REP(i,n){
+			cin>>length[i];
+			temp[i+1]=temp[i]+length[i];
+		}
+		sort(all(length));
+		REP(J,q){
+			int k;
+			cin>>k;
+			int beg = 0, end = n-1, mid, first = n;
+			while(true){
+				if(beg > end)
+					break;
+				mid = (beg + end) / 2;
+				if(length[mid] >= k){
+					first = mid;
+					end = mid - 1;
+				}
+				else{
+					beg = mid + 1;
+				}
+			}
+			beg = 0, end = first-1;
+			int pos = first;
+			while(true){
+				if(beg > end){
+					break;
+				}
+				mid = (beg + end) / 2;
+				DEBUG(k*(first - mid) - (temp[first]-temp[mid]));
+				DEBUG(mid);
+				if(k*(first - mid) - (temp[first]-temp[mid]) <= mid){
+					pos = mid;
+					end = mid - 1;
+				}
+				else{
+					beg = mid + 1;
+				}
+			}			 
+			cout<<n-pos<<endl;
+		}
+	}	
 }

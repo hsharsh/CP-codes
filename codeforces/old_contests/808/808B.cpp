@@ -1,6 +1,6 @@
 /*****************************************************************************************
 You should enjoy the little detours...
-Because that's where you'll find the things
+Becase that's where you'll find the things
 more important than what you want...
 
 Version	:	1.63
@@ -39,5 +39,19 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	ll n,k;
+	cin>>n>>k;
+	double current=0;
+	vi a(n);
+	REP(i,k){
+		cin>>a[i];
+		current+=a[i];
+	}
+	double sum = current;
+	FOR(i,k,n){
+		cin>>a[i];
+		current = current + a[i]-a[i-k];
+		sum+=current;
+	}
+	printf("%0.12f\n",(sum/(n-k+1)));
 }

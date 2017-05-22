@@ -39,5 +39,21 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	float n,k;
+	cin>>n>>k;
+	float sum=0;
+	REP(i,n){
+		int temp;
+		cin>>temp;
+		sum += temp;
+	}
+	float f = sum / n;
+	int i = 0;
+	while(true){
+		f = (sum + i*k) / (n + i);
+		if(f >= k-0.5)
+			break;
+		i++;
+	}
+	cout<<i<<endl;
 }

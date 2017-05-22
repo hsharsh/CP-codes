@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Becase that's where you'll find the things
 more important than what you want...
 
-Version	:	1.5
+Version	:	1.63
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -27,6 +27,7 @@ using namespace std;
 #define vii 		vector<vector<int> >
 #define vll 		vector<vector<ll> >
 #define vs 			vector<string>
+#define vb			vector<bool>
 #define si 			set<int>
 #define pii 		pair<int,int>
 #define pll			pair<ll,ll>
@@ -35,18 +36,36 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
-ll power_modulo(ll base, ll exp, ll mod){
-	ll result = 1;
-	base %= mod;
-	while(exp > 0){
-		if(exp%2 == 1)
-			result = (result*base) % mod;
-		exp = exp>>1;
-		base = (base*base) % mod;
+int correct(int i,int n){
+	if(i<0)
+		return n-i;
+	if(i>=n)
+		return i%n;
+	return i;
+}
+ll retmin(vi r, vb visited, int n, int s, int t){
+	if(visited[s])
+		return INT_MAX;
+	if(abs(t-s)<r[s]||(n-abs(t-s))<r[s])
+		return 1;
+	visited[s]=true;
+	ll ret;
+	for(int i=s-r[s];i<=s+r[s];i++){
+		ret = min(ret, 1 + retmin(r,visited,n,correct(i,n),t));
 	}
-	return result;
+	return ret;
 }
 
 int main(){
-		
+/*	freopen("input.txt","r",stdin);	
+	freopen("output.txt","w",stdout);	*/
+	int n,s,t,g,seed,p;
+	cin>>n>>s>>t;
+	vi r(n);
+	vb visited(n,false);
+	cin>>r[0]>>g>>seed>>p;
+	FOR(i,1,n){
+		r[i] = (r[i-1]*g + seed)%p;
+	}
+	cout<<retmin(r,visited,n,s,t)<<endl;
 }

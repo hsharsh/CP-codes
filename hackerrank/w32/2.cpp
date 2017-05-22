@@ -50,8 +50,8 @@ int main(){
 	int count=0;
 	multiset<int>::iterator it=req.begin();
 	while(it!=req.end()){
-		if( t - *it >=0){
-			t-=*it;
+		if( t - *it >= 0){
+			t -= *it;
 			count++;
 			it++;
 		}

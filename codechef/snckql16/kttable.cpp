@@ -1,6 +1,7 @@
+
 /*****************************************************************************************
 You should enjoy the little detours...
-Because that's where you'll find the things
+Becase that's where you'll find the things
 more important than what you want...
 
 Version	:	1.63
@@ -39,5 +40,25 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int t;
+	cin>>t;
+	REP(I,t){
+		int n,prev=0;
+		cin>>n;
+		vi a(n);
+		REP(i,n){
+			int temp;
+			cin>>temp;
+			a[i]=temp-prev;
+			prev=temp;
+		}
+		int count=0;
+		REP(i,n){
+			int temp;
+			cin>>temp;
+			if(temp<=a[i])
+				count++;
+		}
+		cout<<count<<endl;
+	}
 }

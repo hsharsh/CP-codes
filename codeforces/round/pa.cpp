@@ -1,9 +1,9 @@
 /*****************************************************************************************
 You should enjoy the little detours...
-Becase that's where you'll find the things
+Because that's where you'll find the things
 more important than what you want...
 
-Version	:	1.62
+Version	:	1.63
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -36,31 +36,8 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
-ll power_modulo(ll base, ll exp, ll mod){
-	ll result = 1;
-	base %= mod;
-	while(exp > 0){
-		if(exp%2 == 1)
-			result = (result*base) % mod;
-		exp = exp>>1;
-		base = (base*base) % mod;
-	}
-	return result;
-}
-
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	int a,b,c;
-	cin>>a>>b>>c;
-	int n;
-	cin>>n;
-	ll ans=0;
-	FOR(i,1,n+1){
-		int t;
-		cin>>t;
-		if(t<c && t>=b+1)
-		ans++;
-	}
-	cout<<ans<<endl;
+	
 }

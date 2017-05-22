@@ -1,6 +1,6 @@
 /*****************************************************************************************
 You should enjoy the little detours...
-Because that's where you'll find the things
+Becase that's where you'll find the things
 more important than what you want...
 
 Version	:	1.63
@@ -39,5 +39,32 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int T;
+	cin>>T;
+	REP(I,T){
+		int n;
+		cin>>n;
+		string s;
+		cin>>s;
+		bool flag=true,current=false;
+		REP(i,n){
+			if(s[i]=='.')
+				continue;
+			if(s[i]=='H'){
+				if(current)
+					flag=false;
+				else
+					current=true;
+			}
+			else if(s[i]=='T'){
+				if(!current)
+					flag=false;
+				else
+					current=false;
+			}
+		}
+		if(current)
+			flag=false;
+		cout<<(flag?"Valid":"Invalid")<<endl;
+	}	
 }

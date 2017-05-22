@@ -36,8 +36,35 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+ll power_modulo(ll base, ll exp, ll mod){
+	ll result = 1;
+	base %= mod;
+	while(exp > 0){
+		if(exp%2 == 1)
+			result = (result*base) % mod;
+		exp = exp>>1;
+		base = (base*base) % mod;
+	}
+	return result;
+}
+
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n;
+	cin>>n;
+	vl a(n);
+	REP(i,n)
+		cin>>a[i];
+	sort(all(a));
+
+	vl dp(n+1,0);
+	REP(i,n)
+		dp[i+1]= dp[i]+a[i];
+	ll answer=0;
+	REP(i,n-1){
+		ll temp = (dp[n]-dp[n-i-1]) - (dp[i+1]-dp[0]);
+		answer = ( answer + ( (temp%MOD) * power_modulo(2,i,MOD) )%MOD )%MOD;
+	}
+	cout<<answer<<endl;
 }

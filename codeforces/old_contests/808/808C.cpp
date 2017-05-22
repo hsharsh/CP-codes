@@ -1,6 +1,6 @@
 /*****************************************************************************************
 You should enjoy the little detours...
-Because that's where you'll find the things
+Becase that's where you'll find the things
 more important than what you want...
 
 Version	:	1.63
@@ -36,8 +36,40 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+bool comp1(pair<pii,int> a, pair<pii,int> b){
+	return (a.F).F<(b.F).F;
+}
+bool comp2(pair<pii,int> a, pair<pii,int> b){
+	return a.S<b.S;
+}
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n,w;
+	cin>>n>>w;
+	vector< pair<pii,int> >a(n,mp(mp(0,0),0));
+	REP(i,n){
+		cin>>a[i].F.F;
+		a[i].S=i;
+	}
+	sort(all(a),comp1);
+	int pointer=0;
+	while(w--){
+		a[pointer].F.S++;
+		pointer= (pointer+1)%n;
+	}
+	sort(all(a),comp2);
+	bool flag=true;
+	REP(i,n){
+		if(a[i].F.F/2 > a[i].F.S)
+			flag=false;
+	}
+	if(flag){
+		REP(i,n){
+			cout<<a[i].F.S<<" ";
+		}
+		cout<<endl;
+	}
+	else
+		cout<<-1<<endl;
 }

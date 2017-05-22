@@ -1,6 +1,6 @@
 /*****************************************************************************************
 You should enjoy the little detours...
-Because that's where you'll find the things
+Becase that's where you'll find the things
 more important than what you want...
 
 Version	:	1.63
@@ -39,5 +39,17 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n;
+	cin>>n;
+	int temp = n, count = 0,num;
+	while(n>0){
+		num = n%10;
+		n/=10;
+		count++;
+	}
+	num++;
+	REP(i,count-1){
+		num*=10;
+	}
+	cout<<(num-temp)<<endl;
 }

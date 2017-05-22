@@ -39,5 +39,31 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n,f;
+	cin>>n>>f;
+	vl a(n);
+	ll sellmax = 0;
+	REP(i,n){
+		ll k,l;
+		cin>>k>>l;
+		if(k==0){
+			a[i] = 0;
+		}
+		else if(k >= l){
+			a[i] = 0;
+			sellmax += l;
+		}
+		else{
+			if(2*k < l)
+				a[i] = k;
+			else
+				a[i] = l - k;
+			sellmax += k;
+		}
+	}
+	sort(rall(a));
+	REP(i,f){
+		sellmax+=a[i];
+	}
+	cout<<sellmax<<endl;
 }
