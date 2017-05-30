@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -39,5 +39,29 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n, m;
+	cin >> n >> m;
+	vi p(n);
+	REP(i, n){
+		cin >> p[i];
+	}
+
+	REP(i, m){
+		int l, r, x;
+		vi q = p;
+		cin >> l >> r >> x;
+		if(x < l || x > r)
+			cout << "Yes" <<endl;
+		else{
+			int pos = 0;
+			FOR(j, l-1, r){
+				if(p[j] < p[x-1])
+					pos++;
+			}
+			if(x == l + pos)
+				cout << "Yes" << endl;
+			else
+				cout << "No" << endl;
+		}
+	}
 }

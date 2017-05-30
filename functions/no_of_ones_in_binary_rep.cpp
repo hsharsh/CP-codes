@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define ll long long
+
 ll count_one(ll n){
 	while(n){
 		n = n & (n-1);

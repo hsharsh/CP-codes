@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -36,8 +36,36 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+vb binary(55);
+
+bool value(ll index,ll mlevel){
+	ll i = 0, temp = -1;
+	while(i < mlevel){
+		if(index == temp + pow(2, mlevel-i-1)){
+			return binary[i];
+		}		
+		if(index > (temp + pow(2, mlevel-i-1)))
+			temp += pow(2, mlevel-i-1);
+		i++;
+	}
+}
+
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
+	ll n, l, r;
+	cin>>n>>l>>r;
 	
+	ll i = 0;
+	while(n>0){
+		binary[i] = n & 1;
+		n = n >> 1;
+		i++;
+	}
+	ll answer = 0;
+	FOR(j,l-1,r){
+		ll temp = value(j, i);
+		answer += temp;
+	}
+	cout<<answer<<endl;
 }

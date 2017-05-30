@@ -39,5 +39,19 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	ll n, m;
+	cin >> n >> m;
+	if (m >= n){
+		cout << n << endl;
+		return 0;
+	}
+	ll beg = 0, end = 2e9;
+	while(beg + 1 < end){
+		ll mid = (beg+end) >> 1;
+		if( n - ((mid) * (mid + 1)) / 2 > m)
+			beg = mid;
+		else
+			end = mid;
+	}
+	cout << end + m << endl;
 }

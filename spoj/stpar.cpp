@@ -40,22 +40,31 @@ int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
 	int n;
-	cin>>n;
-	stack<int> street;
-	vi order(n);
-	REP(i,n){
-		int next;
-		cin>>next;
-		while(street.size() && street.top()>next){
+	while(true){
+		cin>>n;
+		if(n == 0)
+			break;
+		stack<int> street;
+		vi order;
+		REP(i,n){
+			int next;
+			cin>>next;
+			while(street.size() && street.top()<next){
+				order.pb(street.top());
+				street.pop();
+			}
+			street.push(next);
+		}
+
+		while(street.size()){
 			order.pb(street.top());
 			street.pop();
+		}	
+		bool possible=true;
+		REP(i,n){
+			if(order[i]!=i+1)
+				possible=false;
 		}
-		street.push(next);
+		cout<<(possible?"yes":"no")<<endl;
 	}
-	bool possible=true;
-	REP(i,n){
-		if(order[i]!=i+1)
-			possible=false;
-	}
-	cout<<(possible?"yes":"no")<<endl;
 }

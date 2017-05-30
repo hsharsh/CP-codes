@@ -39,5 +39,71 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int t;
+	cin >> t;
+	REP(I,t){
+		int n;
+		cin >> n;
+		string a,b;
+		cin >> a >> b;
+		int i = 0, pos = -1;
+		bool snake = true, top = false, bottom = false, both = false, found = false;
+		while(i < n){
+/*			DEBUG(i);
+			DEBUG(top);
+			DEBUG(bottom);
+			DEBUG(both);
+			DEBUG(found);
+			DEBUG(snake);*/
+			if(found && both){
+				if(a[i] == '#' || b[i] == '#')
+					snake = false;
+			}
+			if(found && top){
+				if(a[i] == '.' && b[i] == '#'){
+					if(!((i-pos)&1))
+						snake = false;
+					top = false;
+				}
+				else if(a[i] == '#' && b[i] == '.'){
+					if((i-pos)&1)
+						snake = false;
+					top = false;
+				}
+			}
+			if(found && bottom){
+				if(a[i] == '#' && b[i] == '.'){
+					if(!((i-pos)&1))
+						snake = false;
+					bottom = false;
+				}
+				else if(a[i] == '.' && b[i] == '#'){
+					if((i-pos)&1)
+						snake = false;
+					bottom = false;
+				}
+			}
+
+			if(a[i] == '#' || b[i]=='#')
+				found = true;
+			if(a[i] == '.' && b[i] == '.' && found)
+				both = true;
+			if(a[i] == '.' && b[i] == '#'){
+				top = true;
+				pos = i;
+			}
+			if(b[i] == '.' && a[i] == '#'){
+				pos = i;
+				bottom = true;
+			}
+			i++;
+		}
+/*			DEBUG(i);
+			DEBUG(top);
+			DEBUG(bottom);
+			DEBUG(both);
+			DEBUG(found);
+			DEBUG(snake);*/
+		cout << (snake?"yes":"no") << endl; 
+	}
 }

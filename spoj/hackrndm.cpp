@@ -39,5 +39,16 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n, k;
+	scanf("%d %d", &n, &k);
+	vi a(n);
+	REP(i, n)
+		scanf("%d", &a[i]);
+	sort(all(a));
+
+	ll count = 0;
+	REP(i,n){
+		count += upper_bound(all(a),a[i]+k) - lower_bound(all(a),a[i]+k);
+	}
+	cout << count << endl;
 }

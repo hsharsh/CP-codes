@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -36,8 +36,61 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+map < string, priority_queue<int, vi, greater<int> > > file;
+map < string,bool> check;
+string crt(string name1){
+	if(!check[name1]){
+		check[name1] = true;
+		file[name1].push(1);
+		return name1;
+	}
+
+	int next = file[name1].top();
+	file[name1].pop();
+
+	if(file[name1].size() == 0)
+		file[name1].push(next+1);
+	
+	if(next == 0)
+		return name1;
+	return name1 + "(" + to_string(next) + ")"; 
+}
+
+string del(string name1){
+	int x = 0;
+	if(name1[name1.size()-1]==')'){
+		int it = name1.size() - 2;
+		while(name1[it]!='('){
+			x += (name1[it]-'0')*pow(10,(name1.size()-it-2));
+			it--;
+		}
+		file[name1.substr(0,it)].push(x);
+	}
+	else
+		file[name1].push(0);
+	return name1;
+}
+
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int q;
+	cin >> q;
+	REP(I, q){
+		string cmd, name1, name2;
+		cin >> cmd;
+		if(cmd == "crt"){
+			cin >> name1;
+			cout << "+ " << crt(name1) << endl;
+		}
+		else if(cmd == "del"){
+			cin >> name1;
+			cout << "- " << del(name1) << endl; 
+		}
+		else{
+			cin >> name1 >> name2;
+			cout << "r " << del(name1);
+			cout << " -> " << crt(name2) << endl; 
+		}
+	}
 }

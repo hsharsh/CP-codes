@@ -36,8 +36,59 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+int cost(vii a, int n, int m, int x){
+	int ret = 0;
+	REP(i,n){
+		REP(j,m){
+			ret += abs(x - a[i][j]);
+		}
+	}
+	return ret;
+}
+
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
+	int n, m, d;
+	cin >> n >> m >> d;
+	vii a(n,vi(m));
+	bool possible = true;
 	
+	int beg = INT_MAX, end = INT_MIN;
+	REP(i,n){
+		REP(j,m){
+			cin >> a[i][j];
+		}
+	}
+
+	int check = a[0][0]%d;
+	REP(i,n){
+		REP(j,m){
+			if(a[i][j]%d != check)
+				possible = false;
+			a[i][j] /= d;
+			beg = min(beg, a[i][j]);
+			end = max(end, a[i][j]);
+		}
+	}
+
+	if(!possible){
+		cout << -1 << endl;
+		return 0;
+	}
+
+	beg--;
+	end++;
+	while(beg+2 < end){
+		int leftthird = beg + (end - beg) / 3;
+		int rightthird = end - (end - beg) / 3;
+//		DEBUG(beg);
+//		DEBUG(end);
+		if(cost(a, n, m, leftthird) >= cost(a, n, m, rightthird))
+			beg = leftthird;
+		else
+			end = rightthird;
+	}
+//	DEBUG(beg);
+	cout << min(min(cost(a, n, m, beg),cost(a, n, m, beg+1)),cost(a, n, m, beg+2)) << endl;
 }

@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -39,5 +39,40 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
+	int n;
+	scanf("%d", &n);
 	
+	vi a(n);
+	REP(i,n)
+		scanf("%d", &a[i]);
+	if(n == 1){
+		printf("0\n");
+		return 0;
+	}
+	sort(all(a));
+
+	int beg = 0, end = n;
+	while(beg + 1 < end){
+		int mid = (beg + end) >> 1;
+		if(a[mid] > a[0])
+			end = mid;
+		else
+			beg = mid;
+	}
+	int low = beg;
+
+	beg = -1, end = n-1;
+	while(beg + 1 < end){
+		int mid = (beg + end) >> 1;
+		if(a[mid] < a[n-1])
+			beg = mid;
+		else
+			end = mid;
+	}
+	int high = end;
+
+	if(high > low)
+		printf("%d\n", high - low - 1);
+	else
+		printf("0\n");
 }

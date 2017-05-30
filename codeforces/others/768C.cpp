@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -39,5 +39,39 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n, k, x;
+	cin >> n >> k >> x;
+	vi freq(1024, 0), copy(1024,0);
+	REP(i, n){
+		int temp;
+		cin >> temp;
+		freq[temp]++;
+	}
+	copy = freq;
+	REP(j, k){
+		int before = 0;
+		REP(i, 1024){
+			if(before & 1){
+				int temp_xor = i ^ x;
+				copy[i] -= freq[i] / 2;
+				copy[temp_xor] += freq[i] / 2; 
+			}
+			else{
+				int temp_xor = i ^ x;
+				copy[i] -= (freq[i]+1) / 2;
+				copy[temp_xor] += (freq[i]+1) / 2;				
+			}
+			before += freq[i];
+		}
+		freq = copy;
+	}
+	int smax = INT_MIN, smin = INT_MAX;
+	REP(i, 1024){
+		if(freq[i]){
+			smax = max((ll)smax, i);
+			smin = min((ll)smin, i);
+		}
+	}
+
+	cout << smax << " " << smin << endl;
 }

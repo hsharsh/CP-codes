@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -36,8 +36,60 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+ll lowerbound(vector<ll> array, ll n, ll element){
+	ll beg = -1, end = n;
+	while(beg + 1 < end){
+		ll mid = (beg + end) >> 1;
+		if(array[mid] < element)
+			beg = mid;
+		else
+			end = mid;
+	}
+	return end;
+}
+
+ll upperbound(vector<ll> array, ll n, ll element){
+	ll beg = 0, end = n;
+	while(beg + 1 < end){
+		ll mid = (beg + end) >> 1;
+		if(array[mid] > element)
+			end = mid;
+		else
+			beg = mid;
+	}
+	return end;
+}
+
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int n;
+	cin>>n;
+	vi a(n);
+	REP(i,n)
+		cin>>a[i];
+	vl lhs(n*n*n);
+
+	int it=0;
+	REP(i,n){
+		REP(j,n){
+			REP(k,n){
+				lhs[it] = a[i]*a[j]+a[k];
+				it++;
+			}
+		}
+	}
+	sort(all(lhs));
+	ll sum=0;
+	REP(i,n){
+		REP(j,n){
+			REP(k,n){	
+				if(a[i] != 0){
+					ll rhs = a[i]*(a[j]+a[k]);
+					sum += (upper_bound(lhs.begin(),lhs.end(),rhs) - lower_bound(lhs.begin(),lhs.end(),rhs)); 
+				}
+			}
+		}
+	}
+	cout<<sum<<endl;
 }

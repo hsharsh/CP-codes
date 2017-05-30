@@ -39,5 +39,49 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
+	int n;
+	scanf("%d", &n);
+	vi sher(10, 0), mor(10, 0);
+	string t1,t2;
+	cin >> t1 >> t2;
 	
+	REP(i, n){
+		sher[t1[i]-'0']++;
+		mor[t2[i]-'0']++;
+	}
+
+	int f = 0;
+	vi a = mor, b = sher;
+	REP(i,10){
+		if(a[i] != 0){
+			int j = 0;
+			while(j <= i){
+				int t = min(a[i],b[j]);
+				a[i] -= t;
+				b[j] -= t;
+				j++;
+			}
+		}
+		f += a[i];
+	}
+	
+	printf("%d\n", f);
+	
+	f = 0;
+	a = mor;
+	b = sher;
+	DFOR(i, 9, 0){
+		if(a[i] != 0){
+			int j = i-1;
+			while(j >= 0){
+				int t = min(a[i],b[j]);
+				a[i] -= t;
+				b[j] -= t;
+				f += t;
+				j--;
+			}
+		}
+	}
+	printf("%d\n", f);	
+
 }

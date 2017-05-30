@@ -1,20 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-set<long long> prime_genrator(long long n){
+#define ll long long
+
+set<ll> prime_genrator(ll n){
 	static bool arr[n];
-	for (long long i = 2; i*i < n; i++){
+	for (ll i = 2; i*i < n; i++){
 		if (!arr[i]){
-			for (long long j = i*i; j < n; j += i){
+			for (ll j = i*i; j < n; j += i){
 				arr[j] = true;
 			}
 		}
 	}
-	set<long long> res;
-	for (long long i = 2; i < n; i++)
+	set<ll> res;
+	for (ll i = 2; i < n; i++)
 	{
 		if (!arr[i])
-			res.insert((long long) i );
+			res.insert((ll) i );
 	}
 	return res;
 }

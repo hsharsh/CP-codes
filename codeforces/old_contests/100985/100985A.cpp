@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -36,8 +36,25 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+        return b;
+    return gcd(b % a, a);
+}
+
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int t;
+	cin>>t;
+	REP(I,t){
+		ll a, b;
+		cin >> a >> b;
+		if(gcd(a, b) > 1)
+			cout << "Sim";
+		else
+			cout << "Nao";
+		cout<<endl;
+	}
 }

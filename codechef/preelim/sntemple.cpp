@@ -39,5 +39,26 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int t;
+	cin >> t;
+	REP(I,t){
+		int n;
+		cin >> n;
+		vi a(n);
+		vi L(n,1),R(n,1);
+		ll cost = 0;
+		REP(i,n){
+			cin >> a[i];
+			cost += a[i];
+		}
+		FOR(i, 1, n)
+			L[i] = min(L[i-1] + 1, a[i]);
+		DFOR(i, n-2, 0)
+			R[i] = min(R[i+1] + 1, a[i]);
+		int m = 0;
+		REP(i,n){
+			m = max(m, min(L[i],R[i]));
+		}
+		cout << cost - m*m << endl; 
+	}	
 }
