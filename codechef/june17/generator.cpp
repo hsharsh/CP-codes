@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Because that's where you'll find the things
 more important than what you want...
 
-Version	:	1.64
+Version	:	1.63
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -15,9 +15,9 @@ using namespace std;
 
 #define cns 		ios_base::sync_with_stdio(false)
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
-#define REP(i,n) 	for(ll i=0;i<(n);++i)
-#define FOR(i,a,b) 	for(ll i=(a);i<(b);++i)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);--i)
+#define REP(i,n) 	for(ll i=0;i<(n);i++)
+#define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
+#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -37,7 +37,13 @@ using namespace std;
 #define ull 		unsigned long long
 
 int main(){
-/*	freopen("input.txt","r",stdin);	
-	freopen("output.txt","w",stdout);	*/
-	
+	freopen("input.txt","w",stdout);
+	cout << 1 << endl << 7502 << " " << 2500 << endl;
+	cout << 2499 << " ";
+	FOR(i, 1, 2500)
+		cout << i << " ";
+	cout << endl;
+	REP(i, 7501){
+		cout << 1 << " " << 2500 << endl;
+	}
 }

@@ -3,7 +3,7 @@ You should enjoy the little detours...
 Because that's where you'll find the things
 more important than what you want...
 
-Version	:	1.64
+Version	:	1.63
 Author	:	Harshwardhan Praveen
 *****************************************************************************************/
 #include <bits/stdc++.h>
@@ -15,9 +15,9 @@ using namespace std;
 
 #define cns 		ios_base::sync_with_stdio(false)
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
-#define REP(i,n) 	for(ll i=0;i<(n);++i)
-#define FOR(i,a,b) 	for(ll i=(a);i<(b);++i)
-#define DFOR(i,a,b) for(ll i=(a);i>=(b);--i)
+#define REP(i,n) 	for(ll i=0;i<(n);i++)
+#define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
+#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -39,5 +39,54 @@ using namespace std;
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	
+	int T;
+	cin >> T;
+	REP(I,T){
+		int n, k;
+		cin >> n >> k;
+		vector<vb> check(n, vb(k+1, false));
+		vi missing[n];
+
+		int len,input;
+		REP(i, n){
+			scanf("%d", &len);
+			REP(j, len){
+				scanf("%d", &input);
+				check[i][input] = true;
+			}
+			FOR(j, 1, k+1){
+				if(!check[i][j]){
+					missing[i].pb(j);
+				}
+			}
+		}
+
+		int count = 0;
+		REP(i, n){
+			FOR(j, i + 1, n){
+				if(missing[i].size() + missing[j].size() <= k){
+					bool possible = true;
+					if(missing[i].size() < missing[j].size()){
+						for(auto k : missing[i]){
+							if(!check[j][k]){
+								possible = false;
+								break;
+							}
+						}
+					}
+					else{
+						for(auto k : missing[j]){
+							if(!check[i][k]){
+								possible = false;
+								break;
+							}
+						}						
+					}
+					if(possible)
+						count++;
+				}
+			}
+		}
+		cout << count << endl;
+	}
 }

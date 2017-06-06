@@ -9,7 +9,7 @@ Author	:	Harshwardhan Praveen
 #include <bits/stdc++.h>
 using namespace std;
 
-#define pi 			3.141592653593
+#define pi 			3.14159265358979323846
 #define MOD         1000000007
 #define EPS 		0.000000001
 
@@ -31,13 +31,47 @@ using namespace std;
 #define si 			set<int>
 #define pii	 		pair<int,int>
 #define pll			pair<ll,ll>
-#define F 			first
-#define S 			second
+#define x			first
+#define y 			second
 #define ll 			long long
 #define ull 		unsigned long long
 
+#define pdd			pair<double,double>
+
+pdd center;
+double maxd = -1, mind = 1e9;
+
+double distance(pdd point){
+	return sqrt(pow(point.x-center.x , 2) + pow(point.y - center.y , 2));
+}
+
+void update(pdd beg, pdd end){
+	maxd = max(maxd, distance(beg));
+	REP(i,100){
+		pdd lthird = { (beg.x + (end.x - beg.x) / 3), (beg.y + (end.y - beg.y) / 3)};
+		pdd rthird = { (end.x - (end.x - beg.x) / 3), (end.y - (end.y - beg.y) / 3)};
+		if(distance(lthird) <= distance(rthird))
+			end = rthird;
+		else
+			beg = lthird; 
+	}
+	mind = min(mind, distance(beg));
+}
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
+	int n;
+	cin >> n >> center.x >> center.y;
+	vector < pair<double,double> > a(n);
 	
+	REP(i,n)
+		scanf("%lf %lf",&a[i].x, &a[i].y);
+
+	update(a[0],a[n-1]);
+	FOR(i,1,n){
+		update(a[i],a[i-1]);
+	}
+
+	double answer = ( (double)pi * (pow(maxd,2) - pow(mind,2) ) );
+	printf("%0.09f\n",answer);
 }
