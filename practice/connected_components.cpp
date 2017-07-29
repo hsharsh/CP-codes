@@ -5,7 +5,7 @@ using namespace std;
 vector <int> adj[20];
 bool visited[20];
 int num;
-int dfs(int s) {
+int dfs(int s, int index) {
     visited[s] = true;
     num++;
     for(int i = 0;i < adj[s].size();++i)    {

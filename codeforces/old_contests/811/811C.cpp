@@ -17,7 +17,7 @@ using namespace std;
 #define DEBUG(x) 	cout << '>' << #x << ':' << x << endl
 #define REP(i,n) 	for(ll i=0;i<(n);i++)
 #define FOR(i,a,b) 	for(ll i=(a);i<(b);i++)
-#define DFOR(i,a,b) for(ll i=(a);i>(b);i--)
+#define DFOR(i,a,b) for(ll i=(a);i>=(b);i--)
 #define pb 			push_back
 #define mp 			make_pair
 #define all(v) 		v.begin(),v.end()
@@ -35,95 +35,44 @@ using namespace std;
 #define S 			second
 #define ll 			long long
 #define ull 		unsigned long long
-struct Job
-{
-    int start, finish, profit;
-};
- 
-// A utility function that is used for sorting events
-// according to finish time
-bool jobComparataor(Job s1, Job s2)
-{
-    return (s1.finish < s2.finish);
-}
- 
-int latestNonConflict(Job arr[], int i)
-{
-    for (int j=i-1; j>=0; j--)
-    {
-        if (arr[j].finish <= arr[i-1].start)
-            return j;
-    }
-    return -1;
-}
- 
-// A recursive function that returns the maximum possible
-// profit from given array of jobs.  The array of jobs must
-// be sorted according to finish time.
-int findMaxProfitRec(Job arr[], int n)
-{
-    // Base case
-    if (n == 1) return arr[n-1].profit;
- 
-    // Find profit when current job is inclueded
-    int inclProf = arr[n-1].profit;
-    int i = latestNonConflict(arr, n);
-    if (i != -1)
-      inclProf += findMaxProfitRec(arr, i+1);
- 
-    // Find profit when current job is excluded
-    int exclProf = findMaxProfitRec(arr, n-1);
- 
-    return max(inclProf,  exclProf);
-}
- 
-// The main function that returns the maximum possible
-// profit from given array of jobs
-int findMaxProfit(Job arr[], int n)
-{
-    // Sort jobs according to finish time
-    sort(arr, arr+n, jobComparataor);
- 
-    return findMaxProfitRec(arr, n);
-}
+
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
 	int n;
 	cin >> n;
-	vi a(n);
-	Job arr[n];
+	vi a(n),l(5050), r(5050);
+	vl dp(n+1,0);
 	REP(i, n){
 		cin >> a[i];
 	}
-	vb check(5010,false);
-	int it = 0;
-	REP(i, n){
-		if(!check[a[i]]){
-			check[a[i]] = true;
-			int last = i;
-			FOR(j, i,  n){
-				if(a[i]==a[j])
-					last = j;
-			}
-			vb xored(5010,false);
-			ll xorcalc = 0;
-			FOR(j, i, last+1){
-				if(!xored[a[j]]){
-					xored[a[j]] = true;
-					xorcalc^=a[j];
-				}
-			}
-			arr[it].start = i;
-			arr[it].finish = last;
-			arr[it].profit = xorcalc;
-			it++;
-		}
-	}
-	REP(i,it){
-		cout<<arr[i].start<<" "<<arr[i].finish<<" "<<arr[i].profit<<endl;
-	}
-	cout << "The optimal profit is " << findMaxProfit(arr, it);
 
+	REP(i,n)
+		r[a[i]] = i;
+
+	DFOR(i, n-1, 0)
+		l[a[i]] = i;
+
+	REP(i, n){
+		bool possible = 1;
+		int left = l[a[i]];
+		ll x = 0;
+
+		DFOR(j, i, left){
+			if(r[a[j]] > i){
+				dp[i+1] = dp[i];
+				possible = 0;
+				break;
+			}
+			left = min(left, l[a[j]]);
+			if(j == l[a[j]])
+				x ^= a[j];
+		}
+
+		if(possible)
+			dp[i+1] = max(dp[i], x + dp[left]);
+	}
+
+	cout << *max_element(all(dp)) << endl;
 }
