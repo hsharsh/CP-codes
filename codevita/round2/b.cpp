@@ -53,7 +53,8 @@ int main(){
 		string s;
 		cin>>s;
 		bool flag=true;
-		REP(j,s.size()-1)
+		int siz = s.size();
+		REP(j,siz-1)
 			if(s[j]>s[j+1]){
 				flag=false;
 				break;
@@ -68,12 +69,12 @@ int main(){
 		while(s[j]==s[j-1])
 			j--;
 		s[j]-=1;
-		FOR(k,j+1,s.size())
+		FOR(k,j+1,siz)
 			s[k]='0'+9;
 		ll k=0;
 		while(s[k] == '0')
 			k++;
-		while(k<s.size()){
+		while(k<siz){
 			cout<<s[k++];
 		}
 		cout<<endl;	

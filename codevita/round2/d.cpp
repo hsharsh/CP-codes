@@ -36,48 +36,53 @@ using namespace std;
 #define ll 			long long
 #define ull 		unsigned long long
 #define MAX			1000050
+#define ds 			pair<ll,pair<ll,ll> >
 
-int n,p, cnt = 0;
-vi adj[MAX];
-vb visited(MAX);
-
-void bfs(int source){
-	queue <int> q;
-	q.push(source);
-	cnt = 0;
-	while(!q.empty()){
-		int s = q.front();
-		q.pop();
-		if(!visited[s]){
-			cnt++;
-			visited[s] = true;
-			for(auto i: adj[s]){
-				if(!visited[i])
-					q.push(i);
-			}
-		}
+inline bool comp(ds a, ds b){
+	if(a.S.F > b.S.F)
+		return true;
+	else if(a.S.F == b.S.F){
+		if(a.S.F < b.S.F)
+			return true;
 	}
+	return false;
 }
-
 inline void solve(){
-	cin >> n >> p;
+	ll m, x;
+	cin >> m >> x;
+	vector<ds> eggs(m);
+	ll sum = 0;
+	REP(i,m){
+		cin >> eggs[i].S.F;
+		sum += eggs[i].S.F;
+		eggs[i].F = i;
+	}
+	if(sum <= x){
+		x = sum - 1;
+		cout << "Sorry, we can only supply "<< x << " eggs" << endl;	
+	}
+	else
+		cout << "Thank you, your order for " << x << " eggs are accepted" << endl; 
+
+	sort(all(eggs),comp);
 	
-	REP(i, p){
-		int u, v;
-		cin >> u >> v;
-		adj[u].pb(v);
-		adj[v].pb(u);
+	int j = 0;
+	while(j, m){
+		if(eggs[j].S.F - x >= 0){
+			eggs[j].S.S = x;
+			x = 0;
+			break;
+		}
+		else{
+			eggs[j].S.S = eggs[j].S.F;
+			x -= eggs[j].S.F;
+		}
+		j++;
 	}
-
-	vi sizes;
-	ll pairs = 0, cur = 0;
-	REP(i, n){
-		bfs(i);
-		pairs += cur*cnt;
-		cur += cnt;
+	sort(all(eggs));
+	REP(i,m){
+		cout << eggs[i].S.F << "\t" << eggs[i].S.S << "\t" << eggs[i].S.F - eggs[i].S.S << endl;
 	}
-
-	cout << pairs << endl;
 }
 
 int main(){
