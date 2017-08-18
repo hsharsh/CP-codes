@@ -37,70 +37,54 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+int n, m;
 
 inline void solve(){
-	int n;
-	cin >> n;
-	vi a(n);
+	cin >> n >> m;
+	vl minsalary(n), offeredsalary(m), maxjoboffer(m);
 	REP(i, n){
-		cin >> a[i];
+		cin >> minsalary[i];
 	}
 
-	vi forward(8),backward(8);
-	int cur = 1, count = 0;;
-	REP(i, n){
-		if(a[i] == cur){
-			forward[cur]++;
-			count++;
+	REP(i, m){
+		cin >> offeredsalary[i] >> maxjoboffer[i];
+	}
+
+	vector<pii> cand[n];
+	REP(i,n){
+		string s;
+		cin >> s;
+		REP(j,m){
+			if((int)(s[j]-'0') == 1)
+				cand[i].pb({offeredsalary[j],j});
 		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				forward[cur]++;
-				count++;
+	}
+	REP(i, n){
+		sort(rall(cand[i]));
+	}
+
+	ll numjobs = 0,	totsalary = 0, compzero = 0;
+
+	vi employedcount(m,0);
+
+	REP(i, n){
+		for(auto j : cand[i]){
+			if(offeredsalary[j.S] >= minsalary[i] && maxjoboffer[j.S] > 0){
+					maxjoboffer[j.S]--;
+					numjobs++;
+					employedcount[j.S]++;
+					totsalary += offeredsalary[j.S];
+					break;
 			}
 		}
-		if(cur > 7)
-			break;
 	}
 
-	cur = 1;
-	DFOR(i, n-1, 0){
-		if(a[i] == cur){
-			backward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				backward[cur]++;
-				count++;
-			}			
-		}
-		if(cur > 7)
-			break;
-	}
-
-	bool flag = 1;
-
-	FOR(i, 1, 8){
-//		cout << forward[i] << " " << backward[i] << endl;
-		if(forward[i] != backward[i]){
-			flag = 0;
-			break;
-		}
-		if(forward[i] < 1){
-			flag = 0;
-			break;
+	REP(i, m){
+		if(employedcount[i] == 0){
+			compzero++;
 		}
 	}
-
-//	DEBUG(count);
-	if(flag && count - forward[7] == n)
-		cout << "yes" << endl;
-	else
-		cout << "no" << endl;
+	cout << numjobs << " " << totsalary << " " << compzero << endl;
 }
 
 int main(){

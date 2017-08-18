@@ -37,77 +37,60 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
+int n, length = 0;
+vector<double> pathlength;
+vi roads[MAX];
+vb visited(MAX);
 
+int dfs(int source, float prob){
+//	cout << source << "->" << endl;
+	visited[source] = 1;
+	int count  = 0;
+	for(auto i : roads[source]){
+		if(!visited[i])
+			count++;
+	}
+	
+	if(!count){
+		return 1;
+	}
+
+	for(auto i : roads[source]){
+		if(!visited[i]){
+			length++;
+			int ch = dfs(i, prob * (float)1/(float)count);
+			if(ch){
+//				cout << source << " " << length << " " << count << " " << prob << endl; 
+				pathlength.pb((float)length * prob * ((float)1/(float)count));
+			}
+			length--;
+		}
+	}
+	return 0;
+}
 
 inline void solve(){
-	int n;
 	cin >> n;
-	vi a(n);
-	REP(i, n){
-		cin >> a[i];
+	REP(i,n-1){
+		int u, v;
+		cin >> u >> v;
+		roads[u].pb(v);
+		roads[v].pb(u);
 	}
 
-	vi forward(8),backward(8);
-	int cur = 1, count = 0;;
-	REP(i, n){
-		if(a[i] == cur){
-			forward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				forward[cur]++;
-				count++;
-			}
-		}
-		if(cur > 7)
-			break;
+	dfs(1,1);
+	double sum;
+	for(auto i : pathlength){
+		sum += i;
 	}
-
-	cur = 1;
-	DFOR(i, n-1, 0){
-		if(a[i] == cur){
-			backward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				backward[cur]++;
-				count++;
-			}			
-		}
-		if(cur > 7)
-			break;
-	}
-
-	bool flag = 1;
-
-	FOR(i, 1, 8){
-//		cout << forward[i] << " " << backward[i] << endl;
-		if(forward[i] != backward[i]){
-			flag = 0;
-			break;
-		}
-		if(forward[i] < 1){
-			flag = 0;
-			break;
-		}
-	}
-
-//	DEBUG(count);
-	if(flag && count - forward[7] == n)
-		cout << "yes" << endl;
-	else
-		cout << "no" << endl;
+	printf("%0.12lf\n", sum);
 }
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	int t;
+/*	int t;
 	cin >> t;
 	while(t--)
-		solve();	
+*/		solve();	
 }

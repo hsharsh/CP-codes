@@ -37,77 +37,44 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+int n, m;
 
 inline void solve(){
-	int n;
-	cin >> n;
-	vi a(n);
-	REP(i, n){
-		cin >> a[i];
-	}
-
-	vi forward(8),backward(8);
-	int cur = 1, count = 0;;
-	REP(i, n){
-		if(a[i] == cur){
-			forward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				forward[cur]++;
-				count++;
+	cin >> n >> m;
+	bool table[n][m];
+	vl row(n,0), col(m,0);
+	REP(i,n) {
+		REP(j,m){
+			cin >> table[i][j];
+			if(table[i][j]){
+				row[i]++;
+				col[j]++;
 			}
 		}
-		if(cur > 7)
-			break;
+	}
+	ll nset = 0;
+
+	REP(i, n){
+
+		nset += (1ll << row[i]) - 1;
+		nset += (1ll << (m - row[i])) - 1;
 	}
 
-	cur = 1;
-	DFOR(i, n-1, 0){
-		if(a[i] == cur){
-			backward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				backward[cur]++;
-				count++;
-			}			
-		}
-		if(cur > 7)
-			break;
-	}
 
-	bool flag = 1;
+	REP(i, m){
+		nset += (1ll << col[i]) - 1;
+		nset += (1ll << (n - col[i])) - 1;
+	}	
 
-	FOR(i, 1, 8){
-//		cout << forward[i] << " " << backward[i] << endl;
-		if(forward[i] != backward[i]){
-			flag = 0;
-			break;
-		}
-		if(forward[i] < 1){
-			flag = 0;
-			break;
-		}
-	}
+	cout << nset - m*n << endl;
 
-//	DEBUG(count);
-	if(flag && count - forward[7] == n)
-		cout << "yes" << endl;
-	else
-		cout << "no" << endl;
 }
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	int t;
+/*	int t;
 	cin >> t;
 	while(t--)
-		solve();	
+*/		solve();	
 }

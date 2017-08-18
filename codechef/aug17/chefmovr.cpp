@@ -40,67 +40,58 @@ using namespace std;
 
 
 inline void solve(){
-	int n;
-	cin >> n;
-	vi a(n);
-	REP(i, n){
+	ll n, d, moves = 0;
+	cin >> n >> d;
+	vl a(n), sum, count;
+	REP(i, n)
 		cin >> a[i];
-	}
 
-	vi forward(8),backward(8);
-	int cur = 1, count = 0;;
+	vb visited(n, 0);
+
 	REP(i, n){
-		if(a[i] == cur){
-			forward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				forward[cur]++;
-				count++;
+		if(!visited[i]){
+			ll cur = 0, co = 0;
+			for(int j = i; j < n; j+=d){
+				cur += a[j];
+				visited[j] = 1;
+				co++;
+			}
+			if(cur % co == 0)
+				sum.pb(cur / co);
+			else{
+				cout << -1 << endl;
+				return;
 			}
 		}
-		if(cur > 7)
-			break;
 	}
 
-	cur = 1;
-	DFOR(i, n-1, 0){
-		if(a[i] == cur){
-			backward[cur]++;
-			count++;
+	ll check = sum[0];
+	for(auto i : sum){
+		if(i != check){
+			cout << -1 << endl;
+			return;
 		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				backward[cur]++;
-				count++;
-			}			
-		}
-		if(cur > 7)
-			break;
+	}	
+
+	REP(i, n){
+		visited[i] = 0;
 	}
 
-	bool flag = 1;
-
-	FOR(i, 1, 8){
-//		cout << forward[i] << " " << backward[i] << endl;
-		if(forward[i] != backward[i]){
-			flag = 0;
-			break;
-		}
-		if(forward[i] < 1){
-			flag = 0;
-			break;
+	auto it = sum.begin();
+	REP(i, n){
+		if(!visited[i]){
+			for(int j = i; j < n; j += d){
+				visited[j] = 1;
+				if(a[j] != *it){
+					a[j+d] += a[j] - *it;
+					moves += abs(a[j] - *it);
+				}
+			}
+			it++;
 		}
 	}
 
-//	DEBUG(count);
-	if(flag && count - forward[7] == n)
-		cout << "yes" << endl;
-	else
-		cout << "no" << endl;
+	cout << moves << endl;
 }
 
 int main(){

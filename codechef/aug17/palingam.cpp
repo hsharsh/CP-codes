@@ -40,67 +40,37 @@ using namespace std;
 
 
 inline void solve(){
-	int n;
-	cin >> n;
-	vi a(n);
-	REP(i, n){
-		cin >> a[i];
+	string s, t;
+	cin >> s >> t;
+	int n = s.size();
+	vi a(26), b(26);
+	REP(i,n){
+		a[s[i]-'a']++;
+		b[t[i]-'a']++;
 	}
-
-	vi forward(8),backward(8);
-	int cur = 1, count = 0;;
-	REP(i, n){
-		if(a[i] == cur){
-			forward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				forward[cur]++;
-				count++;
+	bool a_in_b = 1, b_in_a = 1, win_a = 0;
+	REP(i, 26){
+		if(a[i] && !b[i])
+			a_in_b = 0;
+		if(b[i] && !a[i])
+			b_in_a = 0;
+	}
+	if(!a_in_b){
+		REP(i, 26){
+			if(a[i] >= 2){
+				if(!b[i]){
+					win_a = 1;
+				}
 			}
 		}
-		if(cur > 7)
-			break;
-	}
 
-	cur = 1;
-	DFOR(i, n-1, 0){
-		if(a[i] == cur){
-			backward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				backward[cur]++;
-				count++;
-			}			
-		}
-		if(cur > 7)
-			break;
-	}
-
-	bool flag = 1;
-
-	FOR(i, 1, 8){
-//		cout << forward[i] << " " << backward[i] << endl;
-		if(forward[i] != backward[i]){
-			flag = 0;
-			break;
-		}
-		if(forward[i] < 1){
-			flag = 0;
-			break;
+		if(b_in_a){
+			win_a = 1;
 		}
 	}
 
-//	DEBUG(count);
-	if(flag && count - forward[7] == n)
-		cout << "yes" << endl;
-	else
-		cout << "no" << endl;
+	cout << (win_a ? "A" : "B" ) << endl;
+
 }
 
 int main(){

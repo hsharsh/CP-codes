@@ -37,77 +37,39 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+int n, k;
 
 inline void solve(){
-	int n;
-	cin >> n;
+	cin >> n >> k;
 	vi a(n);
 	REP(i, n){
 		cin >> a[i];
 	}
-
-	vi forward(8),backward(8);
-	int cur = 1, count = 0;;
-	REP(i, n){
-		if(a[i] == cur){
-			forward[cur]++;
-			count++;
+	int ans = -1, arya = 0, i = 0;
+	while(i < n){
+		arya += a[i];
+		if(k - 8 <= 0 && arya >= k){
+			ans = i+1;
+			break;
+		}
+		if(arya >= 8){
+			k -= 8;
+			arya -= 8;
 		}
 		else{
-			cur++;
-			if(a[i] == cur){
-				forward[cur]++;
-				count++;
-			}
+			k -= arya;
+			arya = 0;
 		}
-		if(cur > 7)
-			break;
+		i++;
 	}
-
-	cur = 1;
-	DFOR(i, n-1, 0){
-		if(a[i] == cur){
-			backward[cur]++;
-			count++;
-		}
-		else{
-			cur++;
-			if(a[i] == cur){
-				backward[cur]++;
-				count++;
-			}			
-		}
-		if(cur > 7)
-			break;
-	}
-
-	bool flag = 1;
-
-	FOR(i, 1, 8){
-//		cout << forward[i] << " " << backward[i] << endl;
-		if(forward[i] != backward[i]){
-			flag = 0;
-			break;
-		}
-		if(forward[i] < 1){
-			flag = 0;
-			break;
-		}
-	}
-
-//	DEBUG(count);
-	if(flag && count - forward[7] == n)
-		cout << "yes" << endl;
-	else
-		cout << "no" << endl;
+	cout << ans << endl;
 }
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-	int t;
+/*	int t;
 	cin >> t;
 	while(t--)
-		solve();	
+*/		solve();	
 }
