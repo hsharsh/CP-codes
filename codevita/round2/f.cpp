@@ -37,10 +37,52 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
+bool bprimes[1000050];
+
+void prime_genrator(ll n){
+	bool arr[n];
+	for (ll i = 2; i*i < n; i++){
+		if (!arr[i]){
+			for (ll j = i*i; j < n; j += i){
+				arr[j] = true;
+			}
+		}
+	}
+	for (ll i = 2; i < n; i++)
+	{
+		if (!arr[i])
+			bprimes[i] = 1;
+	}
+
+}
+
+vi pnum(1000050),ans(1000050);
 
 
 inline void solve(){
 
+	prime_genrator(1000050);
+
+	int cur = 0;
+	REP(j,1000050){
+		if(bprimes[j])
+			cur++;
+		pnum[j] = cur;
+	}
+
+	cur = 0;
+	REP(j,1000050){
+		if(bprimes[pnum[j]])
+			cur++;
+		ans[j] = cur;
+	}
+
+	int t,l,r;
+	cin >> t;
+	REP(j, t){
+		cin >> l >> r;
+		cout << ans[r] - ans[l-1] << endl;
+	}
 }
 
 int main(){

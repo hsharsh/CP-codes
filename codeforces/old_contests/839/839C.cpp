@@ -37,10 +37,53 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
+int n, length = 0;
+vector<double> pathlength;
+vi roads[MAX];
+vb visited(MAX);
 
+int dfs(int source, float prob){
+//	cout << source << "->" << endl;
+	visited[source] = 1;
+	int count  = 0;
+	for(auto i : roads[source]){
+		if(!visited[i])
+			count++;
+	}
+	
+	if(!count){
+		return 1;
+	}
+
+	for(auto i : roads[source]){
+		if(!visited[i]){
+			length++;
+			int ch = dfs(i, prob * (float)1/(float)count);
+			if(ch){
+//				cout << source << " " << length << " " << count << " " << prob << endl; 
+				pathlength.pb((float)length * prob * ((float)1/(float)count));
+			}
+			length--;
+		}
+	}
+	return 0;
+}
 
 inline void solve(){
+	cin >> n;
+	REP(i,n-1){
+		int u, v;
+		cin >> u >> v;
+		roads[u].pb(v);
+		roads[v].pb(u);
+	}
 
+	dfs(1,1);
+	double sum;
+	for(auto i : pathlength){
+		sum += i;
+	}
+	printf("%0.12lf\n", sum);
 }
 
 int main(){

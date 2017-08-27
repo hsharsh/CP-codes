@@ -37,10 +37,32 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+int n, k;
 
 inline void solve(){
-
+	cin >> n >> k;
+	vi a(n);
+	REP(i, n){
+		cin >> a[i];
+	}
+	int ans = -1, arya = 0, i = 0;
+	while(i < n){
+		arya += a[i];
+		if(k - 8 <= 0 && arya >= k){
+			ans = i+1;
+			break;
+		}
+		if(arya >= 8){
+			k -= 8;
+			arya -= 8;
+		}
+		else{
+			k -= arya;
+			arya = 0;
+		}
+		i++;
+	}
+	cout << ans << endl;
 }
 
 int main(){

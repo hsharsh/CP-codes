@@ -40,7 +40,33 @@ using namespace std;
 
 
 inline void solve(){
+	int n;
+	cin >> n;
+	double k;
+	vector<double> bal(n);
+	REP(i, n){
+		cin >> bal[i];
+	}
+	cin >> k;
+	sort(all(bal));
+	double sum;
+	REP(i,n){
+		sum += ((double)4/(double)3) * (3.14) * pow(bal[i],3) * pow(((double)100-k)/(double)100,n-i-1);
+	}
+	ll ans = sum*100;
 
+	cout << ans/100 << ".";
+	int second = ans%100;
+	bool flag = false;
+	REP(i,10){
+		if(second == i)
+			flag = true;
+	}
+	if(!flag){
+		cout << second << endl;
+	}
+	else
+		cout <<"0"<<second<<endl;
 }
 
 int main(){

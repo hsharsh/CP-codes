@@ -40,7 +40,20 @@ using namespace std;
 
 
 inline void solve(){
-
+	float a = 10.09;
+	int ans = a*100;
+	cout << ans/100 << ".";
+	int second = ans%100;
+	bool flag = false;
+	REP(i,10){
+		if(second == i)
+			flag = true;
+	}
+	if(!flag){
+		cout << second << endl;
+	}
+	else
+		cout <<"0"<<second<<endl;
 }
 
 int main(){

@@ -37,9 +37,36 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+int n, m;
 
 inline void solve(){
+	cin >> n >> m;
+	bool table[n][m];
+	vl row(n,0), col(m,0);
+	REP(i,n) {
+		REP(j,m){
+			cin >> table[i][j];
+			if(table[i][j]){
+				row[i]++;
+				col[j]++;
+			}
+		}
+	}
+	ll nset = 0;
+
+	REP(i, n){
+
+		nset += (1ll << row[i]) - 1;
+		nset += (1ll << (m - row[i])) - 1;
+	}
+
+
+	REP(i, m){
+		nset += (1ll << col[i]) - 1;
+		nset += (1ll << (n - col[i])) - 1;
+	}	
+
+	cout << nset - m*n << endl;
 
 }
 

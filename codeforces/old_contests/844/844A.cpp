@@ -37,10 +37,25 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+vb alpha(26,0);
 
 inline void solve(){
-
+	string s;
+	int k;
+	cin >> s >> k;
+	int diff = 0;
+	REP(i, s.size()){
+		if(!alpha[s[i]]){
+			alpha[s[i]] = 1;
+			diff++;
+		}
+	}
+	if(k > s.size())
+		cout << "impossible" << endl;
+	else if(diff >= k)
+		cout << 0 << endl;
+	else
+		cout << k - diff << endl;
 }
 
 int main(){

@@ -37,10 +37,15 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+ll n, k;
 
 inline void solve(){
-
+	cin >> n >> k;
+	ll check = n/k;
+	if(check&1)
+		cout << "YES" << endl;
+	else
+		cout << "NO" << endl;
 }
 
 int main(){

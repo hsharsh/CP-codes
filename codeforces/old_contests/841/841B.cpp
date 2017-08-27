@@ -40,7 +40,27 @@ using namespace std;
 
 
 inline void solve(){
+	int n;
+	cin >> n;
+	vi a(n);
+	int odd = 0, sum = 0;
+	REP(i, n){
+		cin >> a[i];
+		sum += a[i];
+		if(a[i]&1)
+			odd++;
+	}
 
+	if(sum&1)
+		cout << "First";
+	else{
+		if(odd > 0)
+			cout << "First";
+		else
+			cout << "Second";
+	}
+
+	cout << endl;
 }
 
 int main(){

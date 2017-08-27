@@ -37,17 +37,61 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
-
+int n, m;
 
 inline void solve(){
+	cin >> n >> m;
+	vl minsalary(n), offeredsalary(m), maxjoboffer(m);
+	REP(i, n){
+		cin >> minsalary[i];
+	}
 
+	REP(i, m){
+		cin >> offeredsalary[i] >> maxjoboffer[i];
+	}
+
+	vector<pii> cand[n];
+	REP(i,n){
+		string s;
+		cin >> s;
+		REP(j,m){
+			if((int)(s[j]-'0') == 1)
+				cand[i].pb({offeredsalary[j],j});
+		}
+	}
+	REP(i, n){
+		sort(rall(cand[i]));
+	}
+
+	ll numjobs = 0,	totsalary = 0, compzero = 0;
+
+	vi employedcount(m,0);
+
+	REP(i, n){
+		for(auto j : cand[i]){
+			if(offeredsalary[j.S] >= minsalary[i] && maxjoboffer[j.S] > 0){
+					maxjoboffer[j.S]--;
+					numjobs++;
+					employedcount[j.S]++;
+					totsalary += offeredsalary[j.S];
+					break;
+			}
+		}
+	}
+
+	REP(i, m){
+		if(employedcount[i] == 0){
+			compzero++;
+		}
+	}
+	cout << numjobs << " " << totsalary << " " << compzero << endl;
 }
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-/*	int t;
+	int t;
 	cin >> t;
 	while(t--)
-*/		solve();	
+		solve();	
 }

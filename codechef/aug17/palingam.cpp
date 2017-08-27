@@ -40,14 +40,44 @@ using namespace std;
 
 
 inline void solve(){
+	string s, t;
+	cin >> s >> t;
+	int n = s.size();
+	vi a(26), b(26);
+	REP(i,n){
+		a[s[i]-'a']++;
+		b[t[i]-'a']++;
+	}
+	bool a_in_b = 1, b_in_a = 1, win_a = 0;
+	REP(i, 26){
+		if(a[i] && !b[i])
+			a_in_b = 0;
+		if(b[i] && !a[i])
+			b_in_a = 0;
+	}
+	if(!a_in_b){
+		REP(i, 26){
+			if(a[i] >= 2){
+				if(!b[i]){
+					win_a = 1;
+				}
+			}
+		}
+
+		if(b_in_a){
+			win_a = 1;
+		}
+	}
+
+	cout << (win_a ? "A" : "B" ) << endl;
 
 }
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-/*	int t;
+	int t;
 	cin >> t;
 	while(t--)
-*/		solve();	
+		solve();	
 }

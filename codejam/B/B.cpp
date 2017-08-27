@@ -49,9 +49,7 @@ ll power_modulo(ll base, ll exp, ll mod){
 }
 
 int main(){
-	int t;
-	cin>>t;
-	FOR(i,1,t+1){
+
 		string s;
 		cin>>s;
 		bool flag=true;
@@ -61,8 +59,8 @@ int main(){
 				break;
 			}
 		if(flag){
-			cout<<"Case #"<<i<<": "<<s<<endl;
-			continue;
+			cout<<s<<endl;
+			return 0;
 		}
 		ll j=0;
 		while(s[j+1]>=s[j])
@@ -72,13 +70,11 @@ int main(){
 		s[j]-=1;
 		FOR(k,j+1,s.size())
 			s[k]='0'+9;
-		cout<<"Case #"<<i<<": ";
 		ll k=0;
 		while(s[k] == '0')
 			k++;
 		while(k<s.size()){
 			cout<<s[k++];
 		}
-		cout<<endl;
-	}		
+		cout<<endl;	
 }

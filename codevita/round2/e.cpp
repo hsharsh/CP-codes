@@ -37,10 +37,69 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
+ll i[6];
 
+inline bool check(){
+	REP(j,6){
+		REP(k,6){
+			if(i[j] == i[k] && j != k)
+				return false;
+		}
+	}
+	return true;
+}
 
 inline void solve(){
+	int n;
+	cin >> n;
+	vl a(n);
 
+	string str;
+	cin >> str;
+	stringstream ss(str);
+	ll k;
+	REP(j, n){
+		ss >> k;
+		a[j] = k;
+		ss.ignore();
+	}
+	sort(rall(a));
+
+	ll summax = 0;
+	while(i[0] < 6){
+		i[1] = 0;
+		while(i[1] < 6){
+			i[2] = 0;
+			while(i[2] < 6){
+				i[3] = 0;
+				while(i[3] < 6){
+					i[4] = 0;
+					while(i[4] < 6){
+						i[5] = 0;
+						while(i[5] < 6){
+
+							if(check()){
+
+								ll s1 = a[i[0]] + 4*(a[i[1]] + a[i[3]]) + 6*a[i[2]] + a[i[4]];
+								ll s2 = a[i[5]] + 4*(a[i[4]] + a[i[2]]) + 6*a[i[3]] + a[i[1]];
+								ll cursum = s1*s2;
+								if(cursum > summax){
+									summax = max(summax,cursum);
+								}
+							}
+							i[5]++;
+						}
+						i[4]++;
+					}
+					i[3]++;
+				}
+				i[2]++;
+			}
+			i[1]++;
+		}
+		i[0]++;
+	}
+	cout << summax << endl;
 }
 
 int main(){

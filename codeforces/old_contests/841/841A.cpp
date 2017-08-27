@@ -35,11 +35,29 @@ using namespace std;
 #define S 			second
 #define ll 			long long
 #define ull 		unsigned long long
+#define MAX			1000050
 
 
 
 inline void solve(){
-
+	int n, k;
+	cin >> n >> k;
+	string s;
+	cin >> s;
+	vi a(26);
+	REP(i,n){
+		a[s[i]-'a']++;
+	}
+	
+	bool possible = 1;
+	REP(i,26){
+		if((a[i] % k != 0 && a[i] / k >= 1) || a[i] / k >= 2)
+			possible = 0;
+	}
+	if(possible)
+		cout << "YES" <<endl;
+	else
+		cout << "NO" << endl;
 }
 
 int main(){

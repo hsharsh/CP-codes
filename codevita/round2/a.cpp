@@ -37,17 +37,45 @@ using namespace std;
 #define ull 		unsigned long long
 #define MAX			1000050
 
+ll sum = 0;
 
 
 inline void solve(){
+	string s;
+	cin >> s;
 
+	REP(i, 6){
+		int cur = s[i] - 'A';
+		if(i != 5){
+			int next = s[i+1] - 'A';
+			if(cur == 9 && next == 0)
+				cur = next;
+			else if(cur == 8 && next == 1)
+				cur = next;
+			else if(cur == 7 && next == 2)
+				cur = next;
+			else if(cur == 6 && next == 3)
+				cur = next;
+			else if(cur == 5 && next == 4)
+				cur = next;											
+		}
+		sum += cur * pow(10,5-i);
+	}
 }
 
 int main(){
 /*	freopen("input.txt","r",stdin);	
 	freopen("output.txt","w",stdout);	*/
-/*	int t;
+	int t;
+	ll x;
 	cin >> t;
 	while(t--)
-*/		solve();	
+		solve();
+	cin >> x;
+	if(sum > x){
+		cout << "GREEDY" << endl;
+		cout << sum - x << endl;
+	}
+	else
+		cout << "INNOCENT" << endl;	
 }
